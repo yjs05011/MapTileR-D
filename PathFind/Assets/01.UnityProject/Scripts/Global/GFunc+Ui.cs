@@ -5,16 +5,23 @@ using TMPro;
 
 public static partial class GFunc
 {
-    //! ÅØ½ºÆ®¸Þ½¬ÇÁ·Î ÇüÅÂÀÇ ÄÄÆ÷³ÍÆ®ÀÇ ÅØ½ºÆ®¸¦ ¼³Á¤ÇÏ´Â ÇÔ¼ö
+    public static Vector2 GetCameraSize()
+    {
+        Vector2 cameraSize = Vector2.zero;
+        cameraSize.y = Camera.main.orthographicSize * 2.0f;
+        cameraSize.x = cameraSize.y * Camera.main.aspect;
+        return cameraSize;
+    }
+    //! ï¿½Ø½ï¿½Æ®ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ø½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     public static void SetTmpText(this GameObject obj_, string text_)
     {
         TMP_Text tmpTxt = obj_.GetComponent<TMP_Text>();
         if (tmpTxt == null || tmpTxt == default(TMP_Text))
         {
             return;
-        }       // if: °¡Á®¿Ã ÅØ½ºÆ®¸Þ½¬ ÄÄÆ÷³ÍÆ®°¡ ¾ø´Â °æ¿ì
+        }
 
-        // °¡Á®¿Ã ÅØ½ºÆ®¸Þ½¬ ÄÄÆ÷³ÍÆ®°¡ Á¸ÀçÇÏ´Â °æ¿ì
+
         tmpTxt.text = text_;
-    }       // SetTextMeshPro()
+    }       // SetTextMeshPro()0
 }
