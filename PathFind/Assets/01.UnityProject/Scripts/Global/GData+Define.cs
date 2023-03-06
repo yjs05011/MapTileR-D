@@ -9,9 +9,10 @@ public static partial class GData
 
     public const string OBJ_NAME_CURRENT_LEVEL = "Level_1";
 }
-
-public enum PuzzleType
+//! 지형의 속성을 알려주는 타입
+public enum TerrainType
 {
-    NONE = -1, 
-    PUZZLE_BIG_TRIANGLE
+    NONE = -1,
+    PLAIN_PASS,
+    OCEAN_N_PASS
 }       // PuzzleType
