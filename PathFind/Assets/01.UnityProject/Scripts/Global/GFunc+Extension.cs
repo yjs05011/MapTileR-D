@@ -54,5 +54,27 @@ public static partial class GFunc
         bool isEquals = Mathf.Approximately(targetValue, compareValue);
         return isEquals;
     }
+    #region  A star function
+    public static AstarNode FindNode(this List<AstarNode> nodeList, AstarNode compareNode)
+    {
+        if (nodeList.IsValid() == false) { return default; }
+        AstarNode resultNode = default;
+        foreach (var node_ in nodeList)
+        {
+            if (node_.Terrain == default || node_.Terrain == null) { continue; }
+            else if (compareNode.Terrain == default || compareNode.Terrain == null) { continue; }
+            if (node_.Terrain.TileIdx1D.Equals(compareNode.Terrain.TileIdx1D))
+            {
+                resultNode = node_;
+            }
+            else
+            {
+                continue;
+            }
+
+        }
+        return resultNode;
+    }
+    #endregion
 
 }

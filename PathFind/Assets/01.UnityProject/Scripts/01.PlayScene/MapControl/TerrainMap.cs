@@ -44,7 +44,6 @@ public class TerrainMap : TileMapController
         GameObject changeTilePrefab = ResManager.Instance.terrainPrefabs[RDefine.TERRAIN_PREF_OCEAN];
         // 타일맵 중에 어느정도를 바다로 교체할 것인지 결정한다.
         const float CHANGE_PERCENTAGE = 15.0f;
-        Debug.Log(allTileObjs);
         float correctChangePercentage = allTileObjs.Count * (CHANGE_PERCENTAGE / 100.0f);
         List<int> changeTileResult = GFunc.CreateList(allTileObjs.Count, 1);
         changeTileResult.Shuffle();
@@ -66,6 +65,30 @@ public class TerrainMap : TileMapController
         // 타일맵의 일부를 일정 확률로 다른 타일로 교체하는 로직}
 
         // {기존에 존재하는 타일의 순서를 조정하고, 컨트롤러를 캐싱하는 로직
+        TerrainControler tempTerrain = default;
+        TerrainType terrainType = TerrainType.NONE;
+        int loopCnt = 0;
+        foreach (GameObject tile_ in allTileObjs)
+        {
+            tempTerrain = tile_.GetComponent<TerrainControler>();
+            switch (tempTerrain.name)
+            {
+                case RDefine.TERRAIN_PREF_PLAIN:
+                    terrainType = TerrainType.PLAIN_PASS;
+                    break;
+                case RDefine.TERRAIN_PREF_OCEAN:
+                    terrainType = TerrainType.OCEAN_N_PASS;
+                    break;
+                default:
+                    terrainType = TerrainType.NONE;
+                    break;
+
+            }
+            tempTerrain.SetupTerrain(mapController, terrainType, loopCnt);
+            tempTerrain.transform.SetAsFirstSibling();
+            allTerrains.Add(tempTerrain);
+            loopCnt++;
+        }
         // 기존에 존재하는 타일의 순서를 조정하고, 컨트롤러를 캐싱하는 로직}
 
     }
@@ -76,6 +99,7 @@ public class TerrainMap : TileMapController
     //! 인덱스에 해당하는 타일을 리턴한다
     public TerrainControler GetTile(int tileIdx1D)
     {
+        // Debug.Log(allTerrains.Count);
         if (allTerrains.IsValid(tileIdx1D))
         {
             return allTerrains[tileIdx1D];
